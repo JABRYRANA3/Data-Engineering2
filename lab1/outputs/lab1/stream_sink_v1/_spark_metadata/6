@@ -1,0 +1,7 @@
+v1
+{"path":"file:///home/ranajabry/de2/lab1/outputs/lab1/stream_sink_v1/part-00000-6418bddd-ed78-448b-8fbe-3c01121a9f0b-c000.snappy.parquet","size":895,"isDir":false,"modificationTime":1778365790471,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///home/ranajabry/de2/lab1/outputs/lab1/stream_sink_v1/part-00096-0793a215-fbb9-4b99-920c-85ee7b1bee82-c000.snappy.parquet","size":2072,"isDir":false,"modificationTime":1778365791491,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///home/ranajabry/de2/lab1/outputs/lab1/stream_sink_v1/part-00124-26cac4ec-d86b-43ce-b674-1eb752e7f155-c000.snappy.parquet","size":2072,"isDir":false,"modificationTime":1778365792023,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///home/ranajabry/de2/lab1/outputs/lab1/stream_sink_v1/part-00129-a48ca19c-4bbf-460f-affa-9c34da017378-c000.snappy.parquet","size":2096,"isDir":false,"modificationTime":1778365792043,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///home/ranajabry/de2/lab1/outputs/lab1/stream_sink_v1/part-00145-122290b1-3acb-402e-9696-db753cb6c792-c000.snappy.parquet","size":2064,"isDir":false,"modificationTime":1778365792247,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///home/ranajabry/de2/lab1/outputs/lab1/stream_sink_v1/part-00168-41bb59f2-f01a-4a36-9a17-f772399c7782-c000.snappy.parquet","size":2064,"isDir":false,"modificationTime":1778365792567,"blockReplication":1,"blockSize":33554432,"action":"add"}

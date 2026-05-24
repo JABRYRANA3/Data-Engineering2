@@ -1,0 +1,21 @@
+run_id,algorithm,task,notes,iteration,convergence_metric,shuffle_read_bytes_ui,shuffle_write_bytes_ui,elapsed_ms,timestamp
+1,PageRank,pagerank_iter_0_default,default partitioning - no repartition,0,0.028153,,,572.8,2026-05-10T13:17:20.737625
+1,PageRank,pagerank_iter_1_default,default partitioning - no repartition,1,0.010263,,,484.7,2026-05-10T13:17:20.737625
+1,PageRank,pagerank_iter_2_default,default partitioning - no repartition,2,0.002406,,,324.8,2026-05-10T13:17:20.737625
+1,PageRank,pagerank_iter_3_default,default partitioning - no repartition,3,0.000704,,,258.0,2026-05-10T13:17:20.737625
+1,PageRank,pagerank_iter_4_default,default partitioning - no repartition,4,0.000192,,,275.9,2026-05-10T13:17:20.737625
+1,PageRank,pagerank_iter_5_default,default partitioning - no repartition,5,5.5e-05,,,262.6,2026-05-10T13:17:20.737625
+1,PageRank,pagerank_iter_6_default,default partitioning - no repartition,6,1.5e-05,,,268.3,2026-05-10T13:17:20.737625
+1,PageRank,pagerank_iter_7_default,default partitioning - no repartition,7,4e-06,,,243.8,2026-05-10T13:17:20.737625
+1,PageRank,pagerank_iter_8_default,default partitioning - no repartition,8,1e-06,,,305.5,2026-05-10T13:17:20.737625
+1,PageRank,pagerank_iter_9_default,default partitioning - no repartition,9,0.0,,,274.4,2026-05-10T13:17:20.737625
+2,PageRank,pagerank_iter_0_repart,repartitioned by src (8 partitions),0,0.028153,,,529.2,2026-05-10T13:17:20.737625
+2,PageRank,pagerank_iter_1_repart,repartitioned by src (8 partitions),1,0.010263,,,311.0,2026-05-10T13:17:20.737625
+2,PageRank,pagerank_iter_2_repart,repartitioned by src (8 partitions),2,0.002406,,,321.1,2026-05-10T13:17:20.737625
+2,PageRank,pagerank_iter_3_repart,repartitioned by src (8 partitions),3,0.000704,,,237.3,2026-05-10T13:17:20.737625
+2,PageRank,pagerank_iter_4_repart,repartitioned by src (8 partitions),4,0.000192,,,393.1,2026-05-10T13:17:20.737625
+2,PageRank,pagerank_iter_5_repart,repartitioned by src (8 partitions),5,5.5e-05,,,330.7,2026-05-10T13:17:20.737625
+2,PageRank,pagerank_iter_6_repart,repartitioned by src (8 partitions),6,1.5e-05,,,242.3,2026-05-10T13:17:20.737625
+2,PageRank,pagerank_iter_7_repart,repartitioned by src (8 partitions),7,4e-06,,,223.4,2026-05-10T13:17:20.737625
+2,PageRank,pagerank_iter_8_repart,repartitioned by src (8 partitions),8,1e-06,,,283.3,2026-05-10T13:17:20.737625
+2,PageRank,pagerank_iter_9_repart,repartitioned by src (8 partitions),9,0.0,,,251.6,2026-05-10T13:17:20.737625

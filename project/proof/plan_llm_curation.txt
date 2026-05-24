@@ -1,0 +1,83 @@
+== Physical Plan ==
+* Project (14)
++- SortAggregate (13)
+   +- * Sort (12)
+      +- Exchange (11)
+         +- SortAggregate (10)
+            +- * Sort (9)
+               +- Union (8)
+                  :- * Project (3)
+                  :  +- * Filter (2)
+                  :     +- Scan csv  (1)
+                  +- * Project (7)
+                     +- * Filter (6)
+                        +- * ColumnarToRow (5)
+                           +- Scan parquet  (4)
+
+
+(1) Scan csv 
+Output [2]: [doc_id#6285, text#6286]
+Batched: false
+Location: InMemoryFileIndex [file:/home/ranajabry/de2/project/data/corpus/esports_corpus.csv]
+PushedFilters: [IsNotNull(text)]
+ReadSchema: struct<doc_id:string,text:string>
+
+(2) Filter [codegen id : 1]
+Input [2]: [doc_id#6285, text#6286]
+Condition : (isnotnull(text#6286) AND (length(text#6286) >= 100))
+
+(3) Project [codegen id : 1]
+Output [3]: [doc_id#6285, text#6286, xxhash64(text#6286, 42) AS content_hash#6307L]
+Input [2]: [doc_id#6285, text#6286]
+
+(4) Scan parquet 
+Output [3]: [match_id#6287, hero#6290, commentary_text#6297]
+Batched: true
+Location: InMemoryFileIndex [file:/home/ranajabry/de2/project/outputs/project/silver]
+PushedFilters: [IsNotNull(commentary_text)]
+ReadSchema: struct<match_id:int,hero:string,commentary_text:string>
+
+(5) ColumnarToRow [codegen id : 2]
+Input [3]: [match_id#6287, hero#6290, commentary_text#6297]
+
+(6) Filter [codegen id : 2]
+Input [3]: [match_id#6287, hero#6290, commentary_text#6297]
+Condition : (isnotnull(commentary_text#6297) AND (length(commentary_text#6297) >= 100))
+
+(7) Project [codegen id : 2]
+Output [3]: [concat(comm_, cast(match_id#6287 as string), _, hero#6290) AS doc_id#6298, commentary_text#6297 AS text#6299, xxhash64(commentary_text#6297, 42) AS content_hash#6317L]
+Input [3]: [match_id#6287, hero#6290, commentary_text#6297]
+
+(8) Union
+
+(9) Sort [codegen id : 3]
+Input [3]: [doc_id#6285, text#6286, content_hash#6307L]
+Arguments: [content_hash#6307L ASC NULLS FIRST], false, 0
+
+(10) SortAggregate
+Input [3]: [doc_id#6285, text#6286, content_hash#6307L]
+Keys [1]: [content_hash#6307L]
+Functions [2]: [partial_first(doc_id#6285, false), partial_first(text#6286, false)]
+Aggregate Attributes [4]: [first#6318, valueSet#6319, first#6320, valueSet#6321]
+Results [5]: [content_hash#6307L, first#6322, valueSet#6323, first#6324, valueSet#6325]
+
+(11) Exchange
+Input [5]: [content_hash#6307L, first#6322, valueSet#6323, first#6324, valueSet#6325]
+Arguments: hashpartitioning(content_hash#6307L, 8), ENSURE_REQUIREMENTS, [plan_id=7833]
+
+(12) Sort [codegen id : 4]
+Input [5]: [content_hash#6307L, first#6322, valueSet#6323, first#6324, valueSet#6325]
+Arguments: [content_hash#6307L ASC NULLS FIRST], false, 0
+
+(13) SortAggregate
+Input [5]: [content_hash#6307L, first#6322, valueSet#6323, first#6324, valueSet#6325]
+Keys [1]: [content_hash#6307L]
+Functions [2]: [first(doc_id#6285, false), first(text#6286, false)]
+Aggregate Attributes [2]: [first(doc_id#6285)()#6313, first(text#6286)()#6315]
+Results [3]: [first(doc_id#6285)()#6313 AS doc_id#6314, first(text#6286)()#6315 AS text#6316, content_hash#6307L]
+
+(14) Project [codegen id : 5]
+Output [8]: [doc_id#6314, text#6316, content_hash#6307L, synthetic_esports_v1 AS source#6308, v1.0 AS version#6309, A_Esports AS track#6310, 2026-05-16 23:03:36.460834 AS curated_at#6311, length(text#6316) AS text_len#6312]
+Input [3]: [doc_id#6314, text#6316, content_hash#6307L]
+
+

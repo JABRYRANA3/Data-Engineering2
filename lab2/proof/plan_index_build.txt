@@ -1,0 +1,67 @@
+== Physical Plan ==
+AdaptiveSparkPlan (11)
++- Sort (10)
+   +- Exchange (9)
+      +- ObjectHashAggregate (8)
+         +- Exchange (7)
+            +- ObjectHashAggregate (6)
+               +- Filter (5)
+                  +- Generate (4)
+                     +- Project (3)
+                        +- Filter (2)
+                           +- Scan csv  (1)
+
+
+(1) Scan csv 
+Output [2]: [doc_id#0, text#1]
+Batched: false
+Location: InMemoryFileIndex [file:/home/ranajabry/de2/lab2/data/corpus/esports_corpus.csv]
+ReadSchema: struct<doc_id:string,text:string>
+
+(2) Filter
+Input [2]: [doc_id#0, text#1]
+Condition : ((size(split(regexp_replace(lower(text#1), [^a-z0-9\s], , 1), \s+, -1), false) > 0) AND isnotnull(split(regexp_replace(lower(text#1), [^a-z0-9\s], , 1), \s+, -1)))
+
+(3) Project
+Output [2]: [doc_id#0, split(regexp_replace(lower(text#1), [^a-z0-9\s], , 1), \s+, -1) AS tokens#34]
+Input [2]: [doc_id#0, text#1]
+
+(4) Generate
+Input [2]: [doc_id#0, tokens#34]
+Arguments: explode(tokens#34), [doc_id#0], false, [token#36]
+
+(5) Filter
+Input [2]: [doc_id#0, token#36]
+Condition : ((length(token#36) > 0) AND NOT token#36 INSET a, an, and, are, as, at, be, but, by, for, from, had, has, have, if, in, is, it, not, of, on, or, that, the, then, this, to, was, were, with)
+
+(6) ObjectHashAggregate
+Input [2]: [doc_id#0, token#36]
+Keys [1]: [token#36]
+Functions [2]: [partial_collect_list(doc_id#0, 0, 0), partial_count(1)]
+Aggregate Attributes [2]: [buf#68, count#69L]
+Results [3]: [token#36, buf#70, count#71L]
+
+(7) Exchange
+Input [3]: [token#36, buf#70, count#71L]
+Arguments: hashpartitioning(token#36, 200), ENSURE_REQUIREMENTS, [plan_id=446]
+
+(8) ObjectHashAggregate
+Input [3]: [token#36, buf#70, count#71L]
+Keys [1]: [token#36]
+Functions [2]: [collect_list(doc_id#0, 0, 0), count(1)]
+Aggregate Attributes [2]: [collect_list(doc_id#0, 0, 0)#56, count(1)#55L]
+Results [3]: [token#36, collect_list(doc_id#0, 0, 0)#56 AS doc_ids#51, count(1)#55L AS freq#52L]
+
+(9) Exchange
+Input [3]: [token#36, doc_ids#51, freq#52L]
+Arguments: rangepartitioning(freq#52L DESC NULLS LAST, 200), ENSURE_REQUIREMENTS, [plan_id=449]
+
+(10) Sort
+Input [3]: [token#36, doc_ids#51, freq#52L]
+Arguments: [freq#52L DESC NULLS LAST], true, 0
+
+(11) AdaptiveSparkPlan
+Output [3]: [token#36, doc_ids#51, freq#52L]
+Arguments: isFinalPlan=false
+
+

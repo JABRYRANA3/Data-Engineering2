@@ -1,0 +1,3 @@
+run_id,task,trigger_interval,watermark_duration,numInputRows,processedRowsPerSecond,triggerExecution_ms,stateRowsTotal,stateRowsUpdated,timestamp,notes
+1,baseline_trigger_10s_wm_15min,10s,15 minutes,0,0.0,4,7,0,2026-05-09T22:32:30.000Z,
+2,optimized_trigger_30s_wm_5min,30s,5 minutes,11,5.66,1945,13,6,2026-05-09T22:54:30.000Z,

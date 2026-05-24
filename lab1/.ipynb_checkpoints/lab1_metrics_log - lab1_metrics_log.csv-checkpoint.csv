@@ -1,0 +1,3 @@
+run_id,task,trigger_interval,watermark_duration,numInputRows,processedRowsPerSecond,triggerExecution_ms,stateRowsTotal,stateRowsUpdated,input_rate_ui,processing_rate_ui,batch_duration_ui_ms,shuffle_read_bytes,shuffle_write_bytes,timestamp,notes
+1,baseline_trigger_10s_wm_15min,10s,15 minutes,,,,,,,,,,,,baseline run - fill from query.lastProgress and Spark UI Streaming tab
+2,optimized_trigger_30s_wm_5min,30s,5 minutes,,,,,,,,,,,,optimized run - fill from query.lastProgress and Spark UI Streaming tab

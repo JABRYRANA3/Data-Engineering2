@@ -1,0 +1,49 @@
+run_id,stage,task,metric_name,metric_value,notes,timestamp
+1,etl,bronze_land,rows,30000,raw CSV landed immutably,2026-05-16T22:55:45
+2,etl,bronze_land,bytes,10073481,on-disk footprint,2026-05-16T22:55:45
+3,etl,bronze_land,elapsed_ms,5638.3,,2026-05-16T22:55:45
+4,etl,silver_clean,rows,30000,after type cast + null drop + dedup,2026-05-16T22:58:23
+5,etl,silver_clean,bytes,1598682,Parquet output,2026-05-16T22:58:23
+6,etl,silver_clean,elapsed_ms,3156.4,,2026-05-16T22:58:23
+7,etl,silver_clean,rows_dropped,0,contract violations + duplicates,2026-05-16T22:58:23
+8,etl,gold_build,team_perf_rows,360,partitioned by ['region'],2026-05-16T22:59:10
+9,etl,gold_build,hero_picks_rows,250,,2026-05-16T22:59:10
+10,etl,gold_build,bytes,138272,total gold footprint,2026-05-16T22:59:10
+11,etl,gold_build,elapsed_ms,2309.3,,2026-05-16T22:59:10
+12,streaming,file_source_pipeline,numInputRows,0,last batch,2026-05-16T23:02:00
+13,streaming,file_source_pipeline,processedRowsPerSecond,0.0,,2026-05-16T23:02:00
+14,streaming,file_source_pipeline,triggerExecution_ms,292,,2026-05-16T23:02:00
+15,streaming,file_source_pipeline,stateRowsTotal,8,,2026-05-16T23:02:00
+16,streaming,file_source_pipeline,sink_rows,36,windows × teams written,2026-05-16T23:02:00
+17,iterative,graph_build,vertices,50,,2026-05-16T23:03:28
+18,iterative,graph_build,edges,1223,unique co-pick pairs,2026-05-16T23:03:28
+19,iterative,pagerank_default_iter_0,elapsed_ms,455.1,max_delta=0.000332,2026-05-16T23:03:36
+20,iterative,pagerank_default_iter_1,elapsed_ms,301.7,max_delta=0.000011,2026-05-16T23:03:36
+21,iterative,pagerank_default_iter_2,elapsed_ms,283.6,max_delta=0.000000,2026-05-16T23:03:36
+22,iterative,pagerank_default_iter_3,elapsed_ms,307.8,max_delta=0.000000,2026-05-16T23:03:36
+23,iterative,pagerank_default_iter_4,elapsed_ms,274.0,max_delta=0.000000,2026-05-16T23:03:36
+24,iterative,pagerank_default_iter_5,elapsed_ms,255.9,max_delta=0.000000,2026-05-16T23:03:36
+25,iterative,pagerank_default_iter_6,elapsed_ms,257.7,max_delta=0.000000,2026-05-16T23:03:36
+26,iterative,pagerank_default_iter_7,elapsed_ms,256.2,max_delta=0.000000,2026-05-16T23:03:36
+27,iterative,pagerank_default_iter_8,elapsed_ms,198.5,max_delta=0.000000,2026-05-16T23:03:36
+28,iterative,pagerank_default_iter_9,elapsed_ms,203.0,max_delta=0.000000,2026-05-16T23:03:36
+29,iterative,pagerank_repart_iter_0,elapsed_ms,275.7,max_delta=0.000332,2026-05-16T23:03:36
+30,iterative,pagerank_repart_iter_1,elapsed_ms,179.7,max_delta=0.000011,2026-05-16T23:03:36
+31,iterative,pagerank_repart_iter_2,elapsed_ms,202.5,max_delta=0.000000,2026-05-16T23:03:36
+32,iterative,pagerank_repart_iter_3,elapsed_ms,199.0,max_delta=0.000000,2026-05-16T23:03:36
+33,iterative,pagerank_repart_iter_4,elapsed_ms,244.7,max_delta=0.000000,2026-05-16T23:03:36
+34,iterative,pagerank_repart_iter_5,elapsed_ms,203.7,max_delta=0.000000,2026-05-16T23:03:36
+35,iterative,pagerank_repart_iter_6,elapsed_ms,214.4,max_delta=0.000000,2026-05-16T23:03:36
+36,iterative,pagerank_repart_iter_7,elapsed_ms,181.6,max_delta=0.000000,2026-05-16T23:03:36
+37,iterative,pagerank_repart_iter_8,elapsed_ms,190.5,max_delta=0.000000,2026-05-16T23:03:36
+38,iterative,pagerank_repart_iter_9,elapsed_ms,209.8,max_delta=0.000000,2026-05-16T23:03:36
+39,iterative,summary,total_default_ms,2793.5,10 iterations,2026-05-16T23:03:36
+40,iterative,summary,total_repart_ms,2101.5,"10 iterations, 8 partitions",2026-05-16T23:03:36
+41,iterative,summary,speedup,1.329,default/repart,2026-05-16T23:03:36
+42,llm_prep,curation,raw_records,30150,corpus + silver commentary,2026-05-16T23:03:37
+43,llm_prep,curation,curated_records,30145,after filters + dedup,2026-05-16T23:03:37
+44,llm_prep,curation,pass_rate_pct,99.98,quality pass,2026-05-16T23:03:37
+45,llm_prep,curation,min_text_length,100,filter threshold,2026-05-16T23:03:37
+46,llm_prep,curation,output_bytes,1570053,Parquet llm_ready footprint,2026-05-16T23:03:37
+47,slo_check,parquet_csv_ratio,status,N/A,"measured=None, threshold <= 0.6",2026-05-16T23:07:26
+48,slo_check,llm_quality_pass_rate,status,PASS,"measured=0.9998, threshold >= 0.8",2026-05-16T23:07:26

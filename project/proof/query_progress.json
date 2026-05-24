@@ -1,0 +1,61 @@
+{
+  "id": "ac41c487-a8a4-4ee1-a8fc-7f34a8f91daf",
+  "runId": "dc5bf16a-c630-4758-b4d4-166900529212",
+  "name": null,
+  "timestamp": "2026-05-16T21:01:50.000Z",
+  "batchId": 12,
+  "batchDuration": 292,
+  "durationMs": {
+    "triggerExecution": 292,
+    "queryPlanning": 14,
+    "getBatch": 0,
+    "commitOffsets": 20,
+    "latestOffset": 4,
+    "addBatch": 226,
+    "walCommit": 24
+  },
+  "eventTime": {
+    "watermark": "2026-05-09T12:44:20.000Z"
+  },
+  "stateOperators": [
+    {
+      "operatorName": "stateStoreSave",
+      "numRowsTotal": 8,
+      "numRowsUpdated": 0,
+      "numRowsRemoved": 10,
+      "allUpdatesTimeMs": 71,
+      "allRemovalsTimeMs": 213,
+      "commitTimeMs": 384,
+      "memoryUsedBytes": 8768,
+      "numRowsDroppedByWatermark": 0,
+      "numShufflePartitions": 8,
+      "numStateStoreInstances": 8,
+      "customMetrics": {
+        "stateOnCurrentVersionSizeBytes": 3208,
+        "loadedMapCacheHitCount": 192,
+        "loadedMapCacheMissCount": 0
+      }
+    }
+  ],
+  "sources": [
+    {
+      "description": "FileStreamSource[file:/home/ranajabry/de2/project/data/streaming/landing]",
+      "startOffset": "{\"logOffset\":9}",
+      "endOffset": "{\"logOffset\":9}",
+      "latestOffset": "None",
+      "numInputRows": 0,
+      "inputRowsPerSecond": 0.0,
+      "processedRowsPerSecond": 0.0,
+      "metrics": {}
+    }
+  ],
+  "sink": {
+    "description": "FileSink[file:/home/ranajabry/de2/project/outputs/project/streaming]",
+    "numOutputRows": -1,
+    "metrics": {}
+  },
+  "numInputRows": 0,
+  "inputRowsPerSecond": 0.0,
+  "processedRowsPerSecond": 0.0,
+  "observedMetrics": {}
+}

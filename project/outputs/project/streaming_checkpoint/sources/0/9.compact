@@ -1,0 +1,11 @@
+v1
+{"path":"file:///home/ranajabry/de2/project/data/streaming/landing/batch_01.json","timestamp":1778965185070,"batchId":0}
+{"path":"file:///home/ranajabry/de2/project/data/streaming/landing/batch_02.json","timestamp":1778965197087,"batchId":1}
+{"path":"file:///home/ranajabry/de2/project/data/streaming/landing/batch_03.json","timestamp":1778965209088,"batchId":2}
+{"path":"file:///home/ranajabry/de2/project/data/streaming/landing/batch_04.json","timestamp":1778965221091,"batchId":3}
+{"path":"file:///home/ranajabry/de2/project/data/streaming/landing/batch_05.json","timestamp":1778965233091,"batchId":4}
+{"path":"file:///home/ranajabry/de2/project/data/streaming/landing/batch_06.json","timestamp":1778965245098,"batchId":5}
+{"path":"file:///home/ranajabry/de2/project/data/streaming/landing/batch_07.json","timestamp":1778965257102,"batchId":6}
+{"path":"file:///home/ranajabry/de2/project/data/streaming/landing/batch_08.json","timestamp":1778965269102,"batchId":7}
+{"path":"file:///home/ranajabry/de2/project/data/streaming/landing/batch_09.json","timestamp":1778965281108,"batchId":8}
+{"path":"file:///home/ranajabry/de2/project/data/streaming/landing/batch_10.json","timestamp":1778965293115,"batchId":9}

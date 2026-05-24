@@ -1,0 +1,7 @@
+v1
+{"path":"file:///home/ranajabry/de2/project/outputs/project/streaming/part-00000-c59325fc-0539-4f23-9a37-466128f137bd-c000.snappy.parquet","size":2115,"isDir":false,"modificationTime":1778965310240,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///home/ranajabry/de2/project/outputs/project/streaming/part-00001-b1e829a8-6565-4860-8416-d8a106f9ffb2-c000.snappy.parquet","size":2123,"isDir":false,"modificationTime":1778965310240,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///home/ranajabry/de2/project/outputs/project/streaming/part-00002-297e32e7-3967-48a4-b1e3-6bb5f934cb90-c000.snappy.parquet","size":2123,"isDir":false,"modificationTime":1778965310240,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///home/ranajabry/de2/project/outputs/project/streaming/part-00005-65ee9995-8c57-47fa-b2b1-33b89b410889-c000.snappy.parquet","size":2090,"isDir":false,"modificationTime":1778965310240,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///home/ranajabry/de2/project/outputs/project/streaming/part-00006-243171de-9e77-49c6-b9b9-87b8b14e7ab1-c000.snappy.parquet","size":2071,"isDir":false,"modificationTime":1778965310240,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///home/ranajabry/de2/project/outputs/project/streaming/part-00007-76ae93e8-9dae-44b4-bdff-63c18a46c1ec-c000.snappy.parquet","size":2086,"isDir":false,"modificationTime":1778965310244,"blockReplication":1,"blockSize":33554432,"action":"add"}

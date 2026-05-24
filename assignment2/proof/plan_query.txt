@@ -1,0 +1,29 @@
+== Physical Plan ==
+* Filter (5)
++- InMemoryTableScan (1)
+      +- InMemoryRelation (2)
+            +- * ColumnarToRow (4)
+               +- Scan parquet  (3)
+
+
+(1) InMemoryTableScan
+Output [3]: [token#120, doc_ids#121, freq#122L]
+Arguments: [token#120, doc_ids#121, freq#122L], [isnotnull(token#120), (token#120 = hero)]
+
+(2) InMemoryRelation
+Arguments: [token#120, doc_ids#121, freq#122L], StorageLevel(disk, memory, deserialized, 1 replicas)
+
+(3) Scan parquet 
+Output [3]: [token#120, doc_ids#121, freq#122L]
+Batched: true
+Location: InMemoryFileIndex [file:/home/ranajabry/de2/assignment2/outputs/lab2/inverted_index]
+ReadSchema: struct<token:string,doc_ids:array<string>,freq:bigint>
+
+(4) ColumnarToRow [codegen id : 1]
+Input [3]: [token#120, doc_ids#121, freq#122L]
+
+(5) Filter [codegen id : 1]
+Input [3]: [token#120, doc_ids#121, freq#122L]
+Condition : (isnotnull(token#120) AND (token#120 = hero))
+
+

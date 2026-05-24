@@ -1,0 +1,52 @@
+== Physical Plan ==
+SortAggregate (8)
++- * Sort (7)
+   +- Exchange (6)
+      +- SortAggregate (5)
+         +- * Sort (4)
+            +- * Project (3)
+               +- * Filter (2)
+                  +- Scan csv  (1)
+
+
+(1) Scan csv 
+Output [11]: [match_id#17, match_end_time#18, team#19, hero#20, role#21, kills#22, deaths#23, duration_sec#24, region#25, patch_version#26, commentary_text#27]
+Batched: false
+Location: InMemoryFileIndex [file:/home/ranajabry/de2/project/data/raw/matches_0001.csv, ... 2 entries]
+ReadSchema: struct<match_id:string,match_end_time:string,team:string,hero:string,role:string,kills:string,deaths:string,duration_sec:string,region:string,patch_version:string,commentary_text:string>
+
+(2) Filter [codegen id : 1]
+Input [11]: [match_id#17, match_end_time#18, team#19, hero#20, role#21, kills#22, deaths#23, duration_sec#24, region#25, patch_version#26, commentary_text#27]
+Condition : atleastnnonnulls(4, cast(match_id#17 as int), cast(match_end_time#18 as timestamp), team#19, hero#20)
+
+(3) Project [codegen id : 1]
+Output [11]: [cast(match_id#17 as int) AS match_id#100, cast(match_end_time#18 as timestamp) AS match_end_time#101, team#19, hero#20, role#21, cast(kills#22 as int) AS kills#105, cast(deaths#23 as int) AS deaths#106, cast(duration_sec#24 as int) AS duration_sec#107, region#25, patch_version#26, commentary_text#27]
+Input [11]: [match_id#17, match_end_time#18, team#19, hero#20, role#21, kills#22, deaths#23, duration_sec#24, region#25, patch_version#26, commentary_text#27]
+
+(4) Sort [codegen id : 1]
+Input [11]: [match_id#100, match_end_time#101, team#19, hero#20, role#21, kills#105, deaths#106, duration_sec#107, region#25, patch_version#26, commentary_text#27]
+Arguments: [match_id#100 ASC NULLS FIRST, hero#20 ASC NULLS FIRST], false, 0
+
+(5) SortAggregate
+Input [11]: [match_id#100, match_end_time#101, team#19, hero#20, role#21, kills#105, deaths#106, duration_sec#107, region#25, patch_version#26, commentary_text#27]
+Keys [2]: [match_id#100, hero#20]
+Functions [9]: [partial_first(match_end_time#101, false), partial_first(team#19, false), partial_first(role#21, false), partial_first(kills#105, false), partial_first(deaths#106, false), partial_first(duration_sec#107, false), partial_first(region#25, false), partial_first(patch_version#26, false), partial_first(commentary_text#27, false)]
+Aggregate Attributes [18]: [first#238, valueSet#239, first#240, valueSet#241, first#242, valueSet#243, first#244, valueSet#245, first#246, valueSet#247, first#248, valueSet#249, first#250, valueSet#251, first#252, valueSet#253, first#254, valueSet#255]
+Results [20]: [match_id#100, hero#20, first#256, valueSet#257, first#258, valueSet#259, first#260, valueSet#261, first#262, valueSet#263, first#264, valueSet#265, first#266, valueSet#267, first#268, valueSet#269, first#270, valueSet#271, first#272, valueSet#273]
+
+(6) Exchange
+Input [20]: [match_id#100, hero#20, first#256, valueSet#257, first#258, valueSet#259, first#260, valueSet#261, first#262, valueSet#263, first#264, valueSet#265, first#266, valueSet#267, first#268, valueSet#269, first#270, valueSet#271, first#272, valueSet#273]
+Arguments: hashpartitioning(match_id#100, hero#20, 8), ENSURE_REQUIREMENTS, [plan_id=180]
+
+(7) Sort [codegen id : 2]
+Input [20]: [match_id#100, hero#20, first#256, valueSet#257, first#258, valueSet#259, first#260, valueSet#261, first#262, valueSet#263, first#264, valueSet#265, first#266, valueSet#267, first#268, valueSet#269, first#270, valueSet#271, first#272, valueSet#273]
+Arguments: [match_id#100 ASC NULLS FIRST, hero#20 ASC NULLS FIRST], false, 0
+
+(8) SortAggregate
+Input [20]: [match_id#100, hero#20, first#256, valueSet#257, first#258, valueSet#259, first#260, valueSet#261, first#262, valueSet#263, first#264, valueSet#265, first#266, valueSet#267, first#268, valueSet#269, first#270, valueSet#271, first#272, valueSet#273]
+Keys [2]: [match_id#100, hero#20]
+Functions [9]: [first(match_end_time#101, false), first(team#19, false), first(role#21, false), first(kills#105, false), first(deaths#106, false), first(duration_sec#107, false), first(region#25, false), first(patch_version#26, false), first(commentary_text#27, false)]
+Aggregate Attributes [9]: [first(match_end_time#101)()#220, first(team#19)()#222, first(role#21)()#224, first(kills#105)()#226, first(deaths#106)()#228, first(duration_sec#107)()#230, first(region#25)()#232, first(patch_version#26)()#234, first(commentary_text#27)()#236]
+Results [11]: [match_id#100, first(match_end_time#101)()#220 AS match_end_time#221, first(team#19)()#222 AS team#223, hero#20, first(role#21)()#224 AS role#225, first(kills#105)()#226 AS kills#227, first(deaths#106)()#228 AS deaths#229, first(duration_sec#107)()#230 AS duration_sec#231, first(region#25)()#232 AS region#233, first(patch_version#26)()#234 AS patch_version#235, first(commentary_text#27)()#236 AS commentary_text#237]
+
+

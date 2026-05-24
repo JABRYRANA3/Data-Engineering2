@@ -1,0 +1,56 @@
+{
+  "id": "b728863a-7bc0-44f2-992a-867ced9c5456",
+  "runId": "b82334d4-962b-49dd-8635-de2df0d72531",
+  "name": null,
+  "timestamp": "2026-05-09T22:32:30.000Z",
+  "batchId": 13,
+  "batchDuration": 4,
+  "durationMs": {
+    "triggerExecution": 4,
+    "latestOffset": 4
+  },
+  "eventTime": {
+    "watermark": "2026-05-09T12:41:19.000Z"
+  },
+  "stateOperators": [
+    {
+      "operatorName": "stateStoreSave",
+      "numRowsTotal": 7,
+      "numRowsUpdated": 0,
+      "numRowsRemoved": 0,
+      "allUpdatesTimeMs": 267,
+      "allRemovalsTimeMs": 444,
+      "commitTimeMs": 19371,
+      "memoryUsedBytes": 91560,
+      "numRowsDroppedByWatermark": 0,
+      "numShufflePartitions": 200,
+      "numStateStoreInstances": 200,
+      "customMetrics": {
+        "stateOnCurrentVersionSizeBytes": 25736,
+        "loadedMapCacheHitCount": 4800,
+        "loadedMapCacheMissCount": 0
+      }
+    }
+  ],
+  "sources": [
+    {
+      "description": "FileStreamSource[file:/home/ranajabry/de2/lab1/data/landing]",
+      "startOffset": "{\"logOffset\":9}",
+      "endOffset": "{\"logOffset\":9}",
+      "latestOffset": "None",
+      "numInputRows": 0,
+      "inputRowsPerSecond": 0.0,
+      "processedRowsPerSecond": 0.0,
+      "metrics": {}
+    }
+  ],
+  "sink": {
+    "description": "FileSink[file:/home/ranajabry/de2/lab1/outputs/lab1/stream_sink_v1]",
+    "numOutputRows": -1,
+    "metrics": {}
+  },
+  "numInputRows": 0,
+  "inputRowsPerSecond": 0.0,
+  "processedRowsPerSecond": 0.0,
+  "observedMetrics": {}
+}

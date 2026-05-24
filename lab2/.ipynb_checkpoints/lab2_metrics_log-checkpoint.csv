@@ -1,0 +1,9 @@
+run_id,task,input_size_bytes,output_size_bytes,files_read,latency_ms,freq,postings,shuffle_read_bytes_ui,shuffle_write_bytes_ui,timestamp,notes
+1,index_build,,5676,1,,265,,,,2026-05-10T01:47:56.552400,unique tokens=265 from 3864 filtered tokens
+2,footprint_parquet,,5676,1,,,,,,2026-05-10T01:47:56.552400,1 parquet files
+3,footprint_csv,,40767,1,,,,,,2026-05-10T01:47:56.552400,"1 csv files, ratio parquet/csv=13.92%"
+4,query_lookup_hero,,,,95.27,107,107,,,2026-05-10T01:47:56.552400,latency wall-clock from time.time()
+5,query_lookup_ability,,,,44.44,69,69,,,2026-05-10T01:47:56.552400,latency wall-clock from time.time()
+6,query_lookup_damage,,,,57.5,53,53,,,2026-05-10T01:47:56.552400,latency wall-clock from time.time()
+7,query_lookup_mana,,,,40.27,15,15,,,2026-05-10T01:47:56.552400,latency wall-clock from time.time()
+8,query_lookup_ultimate,,,,40.09,59,59,,,2026-05-10T01:47:56.552400,latency wall-clock from time.time()

@@ -1,0 +1,253 @@
+== Physical Plan ==
+* HashAggregate (38)
++- Exchange (37)
+   +- * HashAggregate (36)
+      +- * Project (35)
+         +- * BroadcastHashJoin Inner BuildRight (34)
+            :- * Project (24)
+            :  +- * BroadcastHashJoin Inner BuildLeft (23)
+            :     :- BroadcastExchange (20)
+            :     :  +- * Filter (19)
+            :     :     +- InMemoryTableScan (1)
+            :     :           +- InMemoryRelation (2)
+            :     :                 +- Union (18)
+            :     :                    :- InMemoryTableScan (3)
+            :     :                    :     +- InMemoryRelation (4)
+            :     :                    :           +- * HashAggregate (14)
+            :     :                    :              +- Exchange (13)
+            :     :                    :                 +- * HashAggregate (12)
+            :     :                    :                    +- * Project (11)
+            :     :                    :                       +- * BroadcastHashJoin Inner BuildRight (10)
+            :     :                    :                          :- * Filter (6)
+            :     :                    :                          :  +- Scan csv  (5)
+            :     :                    :                          +- BroadcastExchange (9)
+            :     :                    :                             +- * Filter (8)
+            :     :                    :                                +- Scan csv  (7)
+            :     :                    +- * Project (17)
+            :     :                       +- InMemoryTableScan (15)
+            :     :                             +- InMemoryRelation (16)
+            :     :                                   +- * HashAggregate (14)
+            :     :                                      +- Exchange (13)
+            :     :                                         +- * HashAggregate (12)
+            :     :                                            +- * Project (11)
+            :     :                                               +- * BroadcastHashJoin Inner BuildRight (10)
+            :     :                                                  :- * Filter (6)
+            :     :                                                  :  +- Scan csv  (5)
+            :     :                                                  +- BroadcastExchange (9)
+            :     :                                                     +- * Filter (8)
+            :     :                                                        +- Scan csv  (7)
+            :     +- * Filter (22)
+            :        +- * Scan ExistingRDD (21)
+            +- BroadcastExchange (33)
+               +- * Filter (32)
+                  +- InMemoryTableScan (25)
+                        +- InMemoryRelation (26)
+                              +- * HashAggregate (31)
+                                 +- Exchange (30)
+                                    +- * HashAggregate (29)
+                                       +- InMemoryTableScan (27)
+                                             +- InMemoryRelation (28)
+                                                   +- Union (18)
+                                                      :- InMemoryTableScan (3)
+                                                      :     +- InMemoryRelation (4)
+                                                      :           +- * HashAggregate (14)
+                                                      :              +- Exchange (13)
+                                                      :                 +- * HashAggregate (12)
+                                                      :                    +- * Project (11)
+                                                      :                       +- * BroadcastHashJoin Inner BuildRight (10)
+                                                      :                          :- * Filter (6)
+                                                      :                          :  +- Scan csv  (5)
+                                                      :                          +- BroadcastExchange (9)
+                                                      :                             +- * Filter (8)
+                                                      :                                +- Scan csv  (7)
+                                                      +- * Project (17)
+                                                         +- InMemoryTableScan (15)
+                                                               +- InMemoryRelation (16)
+                                                                     +- * HashAggregate (14)
+                                                                        +- Exchange (13)
+                                                                           +- * HashAggregate (12)
+                                                                              +- * Project (11)
+                                                                                 +- * BroadcastHashJoin Inner BuildRight (10)
+                                                                                    :- * Filter (6)
+                                                                                    :  +- Scan csv  (5)
+                                                                                    +- BroadcastExchange (9)
+                                                                                       +- * Filter (8)
+                                                                                          +- Scan csv  (7)
+
+
+(1) InMemoryTableScan
+Output [2]: [src#21, dst#22]
+Arguments: [src#21, dst#22], [isnotnull(src#21)]
+
+(2) InMemoryRelation
+Arguments: [src#21, dst#22], StorageLevel(disk, memory, deserialized, 1 replicas)
+
+(3) InMemoryTableScan
+Output [2]: [src#21, dst#22]
+Arguments: [src#21, dst#22]
+
+(4) InMemoryRelation
+Arguments: [src#21, dst#22], StorageLevel(disk, memory, deserialized, 1 replicas)
+
+(5) Scan csv 
+Output [2]: [match_id#0, hero_id#1]
+Batched: false
+Location: InMemoryFileIndex [file:/home/ranajabry/de2/assignment3/data/match_picks.csv]
+PushedFilters: [IsNotNull(match_id), IsNotNull(hero_id)]
+ReadSchema: struct<match_id:int,hero_id:string>
+
+(6) Filter [codegen id : 2]
+Input [2]: [match_id#0, hero_id#1]
+Condition : (isnotnull(match_id#0) AND isnotnull(hero_id#1))
+
+(7) Scan csv 
+Output [2]: [match_id#18, hero_id#19]
+Batched: false
+Location: InMemoryFileIndex [file:/home/ranajabry/de2/assignment3/data/match_picks.csv]
+PushedFilters: [IsNotNull(match_id), IsNotNull(hero_id)]
+ReadSchema: struct<match_id:int,hero_id:string>
+
+(8) Filter [codegen id : 1]
+Input [2]: [match_id#18, hero_id#19]
+Condition : (isnotnull(match_id#18) AND isnotnull(hero_id#19))
+
+(9) BroadcastExchange
+Input [2]: [match_id#18, hero_id#19]
+Arguments: HashedRelationBroadcastMode(List(cast(input[0, int, false] as bigint)),false), [plan_id=82]
+
+(10) BroadcastHashJoin [codegen id : 2]
+Left keys [1]: [match_id#0]
+Right keys [1]: [match_id#18]
+Join type: Inner
+Join condition: (hero_id#1 < hero_id#19)
+
+(11) Project [codegen id : 2]
+Output [2]: [hero_id#1 AS src#21, hero_id#19 AS dst#22]
+Input [4]: [match_id#0, hero_id#1, match_id#18, hero_id#19]
+
+(12) HashAggregate [codegen id : 2]
+Input [2]: [src#21, dst#22]
+Keys [2]: [src#21, dst#22]
+Functions: []
+Aggregate Attributes: []
+Results [2]: [src#21, dst#22]
+
+(13) Exchange
+Input [2]: [src#21, dst#22]
+Arguments: hashpartitioning(src#21, dst#22, 8), ENSURE_REQUIREMENTS, [plan_id=88]
+
+(14) HashAggregate [codegen id : 3]
+Input [2]: [src#21, dst#22]
+Keys [2]: [src#21, dst#22]
+Functions: []
+Aggregate Attributes: []
+Results [2]: [src#21, dst#22]
+
+(15) InMemoryTableScan
+Output [2]: [dst#629, src#628]
+Arguments: [dst#629, src#628]
+
+(16) InMemoryRelation
+Arguments: [src#628, dst#629], StorageLevel(disk, memory, deserialized, 1 replicas)
+
+(17) Project [codegen id : 1]
+Output [2]: [dst#629 AS src#622, src#628 AS dst#623]
+Input [2]: [dst#629, src#628]
+
+(18) Union
+
+(19) Filter [codegen id : 1]
+Input [2]: [src#21, dst#22]
+Condition : isnotnull(src#21)
+
+(20) BroadcastExchange
+Input [2]: [src#21, dst#22]
+Arguments: HashedRelationBroadcastMode(List(input[0, string, false]),false), [plan_id=2636]
+
+(21) Scan ExistingRDD
+Output [2]: [id#2392, rank#2398]
+Arguments: [id#2392, rank#2398], MapPartitionsRDD[420] at checkpoint at NativeMethodAccessorImpl.java:0, ExistingRDD, hashpartitioning(id#2392, 8)
+
+(22) Filter
+Input [2]: [id#2392, rank#2398]
+Condition : isnotnull(id#2392)
+
+(23) BroadcastHashJoin [codegen id : 3]
+Left keys [1]: [src#21]
+Right keys [1]: [id#2392]
+Join type: Inner
+Join condition: None
+
+(24) Project [codegen id : 3]
+Output [3]: [src#21, dst#22, rank#2398]
+Input [4]: [src#21, dst#22, id#2392, rank#2398]
+
+(25) InMemoryTableScan
+Output [2]: [src#2527, out_degree#869L]
+Arguments: [src#2527, out_degree#869L], [isnotnull(src#2527)]
+
+(26) InMemoryRelation
+Arguments: [src#2527, out_degree#869L], StorageLevel(disk, memory, deserialized, 1 replicas)
+
+(27) InMemoryTableScan
+Output [1]: [src#21]
+Arguments: [src#21]
+
+(28) InMemoryRelation
+Arguments: [src#21, dst#22], StorageLevel(disk, memory, deserialized, 1 replicas)
+
+(29) HashAggregate [codegen id : 1]
+Input [1]: [src#21]
+Keys [1]: [src#21]
+Functions [1]: [partial_count(1)]
+Aggregate Attributes [1]: [count#900L]
+Results [2]: [src#21, count#901L]
+
+(30) Exchange
+Input [2]: [src#21, count#901L]
+Arguments: hashpartitioning(src#21, 8), ENSURE_REQUIREMENTS, [plan_id=474]
+
+(31) HashAggregate [codegen id : 2]
+Input [2]: [src#21, count#901L]
+Keys [1]: [src#21]
+Functions [1]: [count(1)]
+Aggregate Attributes [1]: [count(1)#868L]
+Results [2]: [src#21, count(1)#868L AS out_degree#869L]
+
+(32) Filter [codegen id : 2]
+Input [2]: [src#2527, out_degree#869L]
+Condition : isnotnull(src#2527)
+
+(33) BroadcastExchange
+Input [2]: [src#2527, out_degree#869L]
+Arguments: HashedRelationBroadcastMode(List(input[0, string, false]),false), [plan_id=2643]
+
+(34) BroadcastHashJoin [codegen id : 3]
+Left keys [1]: [src#21]
+Right keys [1]: [src#2527]
+Join type: Inner
+Join condition: None
+
+(35) Project [codegen id : 3]
+Output [2]: [dst#22 AS id#2541, (rank#2398 / cast(out_degree#869L as double)) AS contrib#2542]
+Input [5]: [src#21, dst#22, rank#2398, src#2527, out_degree#869L]
+
+(36) HashAggregate [codegen id : 3]
+Input [2]: [id#2541, contrib#2542]
+Keys [1]: [id#2541]
+Functions [1]: [partial_sum(contrib#2542)]
+Aggregate Attributes [1]: [sum#2607]
+Results [2]: [id#2541, sum#2608]
+
+(37) Exchange
+Input [2]: [id#2541, sum#2608]
+Arguments: hashpartitioning(id#2541, 8), ENSURE_REQUIREMENTS, [plan_id=2649]
+
+(38) HashAggregate [codegen id : 4]
+Input [2]: [id#2541, sum#2608]
+Keys [1]: [id#2541]
+Functions [1]: [sum(contrib#2542)]
+Aggregate Attributes [1]: [sum(contrib#2542)#2546]
+Results [2]: [id#2541, sum(contrib#2542)#2546 AS sum_contrib#2543]
+
+

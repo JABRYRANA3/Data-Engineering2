@@ -1,0 +1,76 @@
+== Physical Plan ==
+* HashAggregate (12)
++- StateStoreSave (11)
+   +- * HashAggregate (10)
+      +- StateStoreRestore (9)
+         +- * HashAggregate (8)
+            +- Exchange (7)
+               +- * HashAggregate (6)
+                  +- * Project (5)
+                     +- * Filter (4)
+                        +- EventTimeWatermark (3)
+                           +- * Project (2)
+                              +- StreamingRelation (1)
+
+
+(1) StreamingRelation
+Output [6]: [match_id#0, match_end_time#1, team#2, kills#3, deaths#4, duration_sec#5]
+Arguments: FileSource[data/landing/], [match_id#0, match_end_time#1, team#2, kills#3, deaths#4, duration_sec#5]
+
+(2) Project [codegen id : 1]
+Output [4]: [match_end_time#1, team#2, kills#3, duration_sec#5]
+Input [6]: [match_id#0, match_end_time#1, team#2, kills#3, deaths#4, duration_sec#5]
+
+(3) EventTimeWatermark
+Input [4]: [match_end_time#1, team#2, kills#3, duration_sec#5]
+Arguments: d65928ca-e8a5-4a7c-8612-5ec7e0ae4ce1, match_end_time#1: timestamp, 15 minutes
+
+(4) Filter [codegen id : 2]
+Input [4]: [match_end_time#1-T900000ms, team#2, kills#3, duration_sec#5]
+Condition : isnotnull(match_end_time#1-T900000ms)
+
+(5) Project [codegen id : 2]
+Output [4]: [named_struct(start, knownnullable(precisetimestampconversion(((precisetimestampconversion(match_end_time#1-T900000ms, TimestampType, LongType) - CASE WHEN (((precisetimestampconversion(match_end_time#1-T900000ms, TimestampType, LongType) - 0) % 3600000000) < 0) THEN (((precisetimestampconversion(match_end_time#1-T900000ms, TimestampType, LongType) - 0) % 3600000000) + 3600000000) ELSE ((precisetimestampconversion(match_end_time#1-T900000ms, TimestampType, LongType) - 0) % 3600000000) END) - 0), LongType, TimestampType)), end, knownnullable(precisetimestampconversion((((precisetimestampconversion(match_end_time#1-T900000ms, TimestampType, LongType) - CASE WHEN (((precisetimestampconversion(match_end_time#1-T900000ms, TimestampType, LongType) - 0) % 3600000000) < 0) THEN (((precisetimestampconversion(match_end_time#1-T900000ms, TimestampType, LongType) - 0) % 3600000000) + 3600000000) ELSE ((precisetimestampconversion(match_end_time#1-T900000ms, TimestampType, LongType) - 0) % 3600000000) END) - 0) + 3600000000), LongType, TimestampType))) AS window#23-T900000ms, team#2, kills#3, duration_sec#5]
+Input [4]: [match_end_time#1-T900000ms, team#2, kills#3, duration_sec#5]
+
+(6) HashAggregate [codegen id : 2]
+Input [4]: [window#23-T900000ms, team#2, kills#3, duration_sec#5]
+Keys [2]: [window#23-T900000ms, team#2]
+Functions [3]: [partial_count(1), partial_avg(kills#3), partial_avg(duration_sec#5)]
+Aggregate Attributes [3]: [count(1)#20L, avg(kills#3)#21, avg(duration_sec#5)#22]
+Results [7]: [window#23-T900000ms, team#2, count#25L, sum#28, count#29L, sum#32, count#33L]
+
+(7) Exchange
+Input [7]: [window#23-T900000ms, team#2, count#25L, sum#28, count#29L, sum#32, count#33L]
+Arguments: hashpartitioning(window#23-T900000ms, team#2, 200), REQUIRED_BY_STATEFUL_OPERATOR, [plan_id=67]
+
+(8) HashAggregate [codegen id : 3]
+Input [7]: [window#23-T900000ms, team#2, count#25L, sum#28, count#29L, sum#32, count#33L]
+Keys [2]: [window#23-T900000ms, team#2]
+Functions [3]: [merge_count(1), merge_avg(kills#3), merge_avg(duration_sec#5)]
+Aggregate Attributes [3]: [count(1)#20L, avg(kills#3)#21, avg(duration_sec#5)#22]
+Results [7]: [window#23-T900000ms, team#2, count#25L, sum#28, count#29L, sum#32, count#33L]
+
+(9) StateStoreRestore
+Input [7]: [window#23-T900000ms, team#2, count#25L, sum#28, count#29L, sum#32, count#33L]
+Arguments: [window#23-T900000ms, team#2], state info [ checkpoint = <unknown>, runId = 48a22ab8-3426-4d1d-a3b3-0928bd745dd1, opId = 0, ver = 0, numPartitions = 200] stateStoreCkptIds = None, 2
+
+(10) HashAggregate [codegen id : 4]
+Input [7]: [window#23-T900000ms, team#2, count#25L, sum#28, count#29L, sum#32, count#33L]
+Keys [2]: [window#23-T900000ms, team#2]
+Functions [3]: [merge_count(1), merge_avg(kills#3), merge_avg(duration_sec#5)]
+Aggregate Attributes [3]: [count(1)#20L, avg(kills#3)#21, avg(duration_sec#5)#22]
+Results [7]: [window#23-T900000ms, team#2, count#25L, sum#28, count#29L, sum#32, count#33L]
+
+(11) StateStoreSave
+Input [7]: [window#23-T900000ms, team#2, count#25L, sum#28, count#29L, sum#32, count#33L]
+Arguments: [window#23-T900000ms, team#2], state info [ checkpoint = <unknown>, runId = 48a22ab8-3426-4d1d-a3b3-0928bd745dd1, opId = 0, ver = 0, numPartitions = 200] stateStoreCkptIds = None, Append, -9223372036854775808, -9223372036854775808, 2
+
+(12) HashAggregate [codegen id : 5]
+Input [7]: [window#23-T900000ms, team#2, count#25L, sum#28, count#29L, sum#32, count#33L]
+Keys [2]: [window#23-T900000ms, team#2]
+Functions [3]: [count(1), avg(kills#3), avg(duration_sec#5)]
+Aggregate Attributes [3]: [count(1)#20L, avg(kills#3)#21, avg(duration_sec#5)#22]
+Results [5]: [window#23-T900000ms, team#2, count(1)#20L AS event_count#7L, avg(kills#3)#21 AS avg_kills#8, avg(duration_sec#5)#22 AS avg_duration_sec#9]
+
+

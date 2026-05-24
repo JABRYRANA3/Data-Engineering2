@@ -1,0 +1,21 @@
+run_id,algorithm,task,notes,iteration,convergence_metric,shuffle_read_bytes_ui,shuffle_write_bytes_ui,elapsed_ms,timestamp
+1,PageRank,pagerank_iter_0_default,default partitioning,0,0.028153,,,716.5,2026-05-11T14:45:17.596132
+1,PageRank,pagerank_iter_1_default,default partitioning,1,0.010263,,,472.7,2026-05-11T14:45:17.596132
+1,PageRank,pagerank_iter_2_default,default partitioning,2,0.002406,,,355.6,2026-05-11T14:45:17.596132
+1,PageRank,pagerank_iter_3_default,default partitioning,3,0.000704,,,363.6,2026-05-11T14:45:17.596132
+1,PageRank,pagerank_iter_4_default,default partitioning,4,0.000192,,,315.8,2026-05-11T14:45:17.596132
+1,PageRank,pagerank_iter_5_default,default partitioning,5,5.5e-05,,,347.1,2026-05-11T14:45:17.596132
+1,PageRank,pagerank_iter_6_default,default partitioning,6,1.5e-05,,,301.0,2026-05-11T14:45:17.596132
+1,PageRank,pagerank_iter_7_default,default partitioning,7,4e-06,,,282.4,2026-05-11T14:45:17.596132
+1,PageRank,pagerank_iter_8_default,default partitioning,8,1e-06,,,299.0,2026-05-11T14:45:17.596132
+1,PageRank,pagerank_iter_9_default,default partitioning,9,0.0,,,266.3,2026-05-11T14:45:17.596132
+2,PageRank,pagerank_iter_0_repart,repartitioned by src (8 partitions),0,0.028153,,,433.3,2026-05-11T14:45:17.596132
+2,PageRank,pagerank_iter_1_repart,repartitioned by src (8 partitions),1,0.010263,,,334.8,2026-05-11T14:45:17.596132
+2,PageRank,pagerank_iter_2_repart,repartitioned by src (8 partitions),2,0.002406,,,233.9,2026-05-11T14:45:17.596132
+2,PageRank,pagerank_iter_3_repart,repartitioned by src (8 partitions),3,0.000704,,,303.6,2026-05-11T14:45:17.596132
+2,PageRank,pagerank_iter_4_repart,repartitioned by src (8 partitions),4,0.000192,,,234.6,2026-05-11T14:45:17.596132
+2,PageRank,pagerank_iter_5_repart,repartitioned by src (8 partitions),5,5.5e-05,,,206.8,2026-05-11T14:45:17.596132
+2,PageRank,pagerank_iter_6_repart,repartitioned by src (8 partitions),6,1.5e-05,,,256.1,2026-05-11T14:45:17.596132
+2,PageRank,pagerank_iter_7_repart,repartitioned by src (8 partitions),7,4e-06,,,217.7,2026-05-11T14:45:17.596132
+2,PageRank,pagerank_iter_8_repart,repartitioned by src (8 partitions),8,1e-06,,,285.9,2026-05-11T14:45:17.596132
+2,PageRank,pagerank_iter_9_repart,repartitioned by src (8 partitions),9,0.0,,,230.5,2026-05-11T14:45:17.596132
